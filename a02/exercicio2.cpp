@@ -18,6 +18,8 @@ main(){
         scanf("%i", &v);
     }
 
+    printf("\nTabuado do %.i\n\n", v);
+
     for (i=1; i<=10; i++) {
         tab = i * v;
         printf("%.i x %.i = %.i\n", v, i, tab);
