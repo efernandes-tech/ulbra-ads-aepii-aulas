@@ -20,6 +20,6 @@ main(){
             count++;
     }
     gotoxy(5, 17); // Posiciona o cursor na tela (coluna, linha).
-    printf("%i alunos tiveram nota superior a media da turma", count);
+    printf("%i alunos tiveram nota superior a media da turma.", count);
     getch(); // Faz uma pausa.
 }
