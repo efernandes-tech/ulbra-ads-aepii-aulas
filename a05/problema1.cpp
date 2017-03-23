@@ -15,6 +15,7 @@ main(){
     gotoxy(5,6); printf("Digite uma letra: ");
     gotoxy(23,6); letra=getche();
     
+    //for(i=0;frase[i]!='\0';i++){
     for(i=0;i<strlen(frase);i++){
         if(frase[i]==letra)
             cont++;
