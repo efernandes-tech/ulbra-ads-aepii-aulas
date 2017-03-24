@@ -10,7 +10,7 @@ sem usar a strlen().
 main(){
     char frase[40];
     int i,cont=0;
-    
+
     clrscr(); // Limpa a tela.
     gotoxy(5,4);
     printf("Digite uma frase: ");
