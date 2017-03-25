@@ -1,0 +1,17 @@
+Exercicios Capitulo 1
+
+1) O custo final de um carro novo para o consumidor é a soma do custo de fábrica, dos impostos e da porcentagem do distribuidor. Supondo que os impostos totalizam 45% sobre o custo de fábrica e a porcentagem do distribuidor seja de 20% sobre o valor total, escreva um programa que leia o custo de fábrica de um carro, calcule e escreva o custo final ao consumidor.
+
+2) Sabe-se que, para iluminar de maneira correta os cômodos de uma casa, para cada m2, deve-se usar 18W de potência. Faça um programa que receba as duas dimensões de um cômodo (em metros), calcule e apresente a sua área (em m2) e a potência de iluminação que deverá ser utilizada.
+
+3) Uma empresa que promove espetáculos teatrais precisa de um programa para definir o valor mínimo para o convite, considerando o custo total do espetáculo e o número de lugares disponíveis para o público no local da apresentação.
+
+4) Sabe-se que:
+1 pé = 12 polegadas;
+1 jarda = 3 pés;
+1 milha = 1760 jardas.
+Faça um programa que receba uma medida em pés, faça as conversões conforme a descrição acima e mostre os resultados em polegadas, jardas e milhas.
+
+5) Considerando uma aplicação de P reais à taxa de juros i constante por um período de N meses, calcule e escreva qual será o montante M após o término da aplicação, sendo M = P * (1 + i) N.
+
+Exercicios Capitulo 2
