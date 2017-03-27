@@ -1,3 +1,5 @@
+// Main retorna um int 0 para nao gerar erro e alguns compiladores.
+
 #include<stdio.h>
 
 int main(void) {
