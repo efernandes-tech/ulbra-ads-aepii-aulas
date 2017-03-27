@@ -31,17 +31,18 @@ main(){
     
     gotoxy(5,10);
     printf("Seu nome tem %i caracteres.", strlen(completo));
-    
-    // tem x nomes
+
     for(i=0;i<strlen(completo);i++){
         if(completo[i] == ' ')
             cont++;
     }
 
     gotoxy(5,12);    
-    printf("%i",cont);
+    printf("Seu nome completo e composto por %i palavras",cont);
     
-    // a primeira letra é 
+    gotoxy(5,14);
+    printf("A primeira letra do nome e: %c",nome[0]);
     
+    gotoxy(5,16);
     getch();
 }
