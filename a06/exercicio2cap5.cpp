@@ -40,6 +40,6 @@ main() {
 			printf("%c",matriz[l][c]);
 		}
 	}
-	
+
 	getch();
 }
