@@ -114,6 +114,7 @@ void listar() {
         gotoxy(10,5); printf("=====");
         gotoxy(10,7); printf("Codigo  Nome          N1  N2  Media");
         
-        // pg 185        
+        while(!feop(arq)){ // Enquanto nao for o final do arquivo.
+        }
     }
 }
