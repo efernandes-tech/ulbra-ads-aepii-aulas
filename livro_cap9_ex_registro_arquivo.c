@@ -115,6 +115,12 @@ void listar() {
         gotoxy(10,7); printf("Codigo  Nome          N1  N2  Media");
         
         while(!feop(arq)){ // Enquanto nao for o final do arquivo.
+
+            // O comando abaixo le os dados do registro, gravados no arquivo,
+            // a variavel teste recebe o retorno da funcao fread,
+            // se ocorrer algum erro no processo, a funcao retorna nulo.
+            
+            teste = fread(&reg, sizeof(struct aluno), 1, arq);
         }
     }
 }
