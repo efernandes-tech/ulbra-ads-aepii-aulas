@@ -100,9 +100,55 @@ void excluir(){
 }
 
 void consultar(){
-    
-}
+    int linha = 9, achei = 0, cod_pesq;
 
+    arq = fopen("atletas.txt", "rb"); 
+
+    if(arq) {
+        clrscr();
+        gotoxy(3,5); printf("Codigo do clube a ser pesquisado: ");
+        scanf("%i", &cod_pesq);
+        
+        clrscr();
+        gotoxy(3,5); printf("--- Relatorio geral ---");
+        gotoxy(3,7); printf("Cod clube  Nome atleta               Idade  Altura");
+
+        rewind(arq);
+        while(!feof(arq)) {
+            teste = fread(&reg, sizeof(struct atleta), 1, arq);
+            
+            if(teste && cod_pesq == reg.cod) {
+                achei = 1;
+                gotoxy(3,linha); printf("%i", reg.cod);
+                gotoxy(14,linha); printf("%s", reg.nome);
+                gotoxy(40,linha); printf("%i", reg.idade);
+                gotoxy(47,linha); printf("%.2f", reg.altura);
+                
+                if(linha < 17) {
+                    linha++;
+                } else {
+                    gotoxy(3,23);
+                    printf("Tecle algo para continuar...");
+                    getch();
+                    gotoxy(5,9); delline();
+                    gotoxy(5,17); insline();
+                }
+            }
+        }
+        gotoxy(3,23);
+        if (achei == 0)
+            printf("Codigo de clube nao cadastrado, tecle algo para voltar ao menu...");        
+        else
+            printf("Relatorio concluido, tecle algo para voltar ao menu...");
+        getch();
+        fclose(arq);
+    } else {
+        clrscr();
+        gotoxy(6,5);
+        printf("Arquivo vazio, tecle algo para retornar ao menu...");
+        getch();
+    }
+}
 
 void relatorio(){
     int linha = 9;
@@ -138,6 +184,7 @@ void relatorio(){
         gotoxy(3,23);
         printf("Relatorio concluido, tecle algo para voltar ao menu...");
         getch();
+        fclose(arq);
     } else {
         clrscr();
         gotoxy(6,5);
