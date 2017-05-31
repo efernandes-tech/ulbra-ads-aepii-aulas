@@ -92,11 +92,112 @@ void gravar(){
 }
 
 void editar(){
+    int achei = 0, apontador = 0;
+    char nome_pesq[80];
     
+    arq = fopen("atletas.txt", "rb+");
+    
+    if(arq) {
+        clrscr();
+        gotoxy(3,5); printf("Nome do atleta a ser pesquisado: ");
+        fflush(stdin); fgets(nome_pesq, 80, stdin);
+
+        rewind(arq);
+        while(!feof(arq) && achei == 0) {
+            teste = fread(&reg, sizeof(struct atleta), 1, arq);
+            apontador++;
+            if(teste && stricmp(nome_pesq, reg.nome)==0) {
+                achei = 1;
+                // --- Mostra os dados na tela
+                gotoxy(3,7);  printf("Cod clube.: %i", reg.cod);
+                gotoxy(3,9);  printf("Idade.....: %i", reg.idade);
+                gotoxy(3,11); printf("Altura....: %.2f", reg.altura);
+                
+                // --- Le os dados novamente
+                gotoxy(50,5);   printf("Nome......: ");
+                gotoxy(50,7);  printf("Cod clube.: ");
+                gotoxy(50,9);  printf("Idade.....: ");
+                gotoxy(50,11); printf("Altura....: ");
+                
+                gotoxy(61,5); fflush(stdin); fgets(reg.nome, 80, stdin);
+                gotoxy(61,7); scanf("%i", &reg.cod);
+                gotoxy(61,9); scanf("%i", &reg.idade);
+                gotoxy(61,11); scanf("%f", &reg.altura);
+                
+                gotoxy(50,13); printf("Confirma a alteração? S/N");
+                resp = getch();
+                
+                if(resp == 's' || resp == 'S') {
+                    apontador--;
+                    fseek(arq, apontador * sizeof(struct atleta), SEEK_SET);
+                    teste = fwrite(&reg, sizeof(struct atleta), 1, arq);
+                }
+            }
+        }
+        if(achei == 0) {
+            gotoxy(3,8);
+            printf("Registro nao, encontrado, tecle algo para voltar ao menu...");
+            getch();
+        }
+        fclose(arq);    
+    } else {
+        clrscr();
+        gotoxy(6,5);
+        printf("Arquivo vazio, tecle algo para retornar ao menu...");
+        getch();        
+    }
 }
 
-void excluir(){
+void excluir() { // Exclusao logica.
+    int achei = 0, apontador = 0;
+    char nome_pesq[80];
     
+    arq = fopen("atletas.txt", "rb+");
+    
+    if(arq) {
+        clrscr();
+        gotoxy(3,5); printf("Nome do atleta a ser pesquisado: ");
+        fflush(stdin); fgets(nome_pesq, 80, stdin);
+
+        rewind(arq);
+        while(!feof(arq) && achei == 0) {
+            teste = fread(&reg, sizeof(struct atleta), 1, arq);
+            apontador++;
+            if(teste && stricmp(nome_pesq, reg.nome)==0) {
+                achei = 1;
+                // --- Mostra os dados na tela
+                gotoxy(3,7);  printf("Cod clube.: %i", reg.cod);
+                gotoxy(3,9);  printf("Idade.....: %i", reg.idade);
+                gotoxy(3,11); printf("Altura....: %.2f", reg.altura);
+                
+                // --- Atribui valores nulos
+                reg.cod = 0;
+                reg.idade = 0;
+                reg.altura = 0;
+                strcpy(reg.nome, "E X C L U I D O");
+                
+                gotoxy(3,13); printf("Confirma a exclusao? S/N");
+                resp = getch();
+                
+                if(resp == 's' || resp == 'S') {
+                    apontador--;
+                    fseek(arq, apontador * sizeof(struct atleta), SEEK_SET);
+                    teste = fwrite(&reg, sizeof(struct atleta), 1, arq);
+                }
+            }
+        }
+        if(achei == 0) {
+            gotoxy(3,8);
+            printf("Registro nao, encontrado, tecle algo para voltar ao menu...");
+            getch();
+        }
+        fclose(arq);    
+    } else {
+        clrscr();
+        gotoxy(6,5);
+        printf("Arquivo vazio, tecle algo para retornar ao menu...");
+        getch();        
+    }
 }
 
 void consultar(){
@@ -117,7 +218,7 @@ void consultar(){
         while(!feof(arq)) {
             teste = fread(&reg, sizeof(struct atleta), 1, arq);
             
-            if(teste && cod_pesq == reg.cod) {
+            if(teste && cod_pesq == reg.cod && strcmp(reg.nome, "E X C L U I D O") != 0) {
                 achei = 1;
                 gotoxy(3,linha); printf("%i", reg.cod);
                 gotoxy(14,linha); printf("%s", reg.nome);
@@ -164,7 +265,7 @@ void relatorio(){
         while(!feof(arq)) {
             teste = fread(&reg, sizeof(struct atleta), 1, arq);
             
-            if(teste) {
+            if(teste && strcmp(reg.nome, "E X C L U I D O") != 0) {
                 gotoxy(3,linha); printf("%i", reg.cod);
                 gotoxy(14,linha); printf("%s", reg.nome);
                 gotoxy(40,linha); printf("%i", reg.idade);
