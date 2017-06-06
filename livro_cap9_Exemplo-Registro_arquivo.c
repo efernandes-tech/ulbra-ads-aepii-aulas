@@ -35,7 +35,7 @@ main() {
 
     do {
         clrscr();
-        gotoxy(10,3); printf("MENU"); // coluna, linha
+        gotoxy(10,3); printf("MENU"); // coluna (x), linha (y) = plano cartesiano
         gotoxy(10,4); printf("=====");
         gotoxy(10,6); printf("1 - Incluir");
         gotoxy(10,7); printf("2 - Listar");
@@ -44,13 +44,13 @@ main() {
         gotoxy(10,10); printf("5 - Excluir");
         gotoxy(10,11); printf("6 - Sair");
         gotoxy(10,13); printf("Opção: ");
-        gotoxy(18,13); op = getche();     // Le a opção do usuário.
-        switch(op) {                      // faz a chamada a uma
-            case '1': incluir(); break;   // das funcoes, conforme
-            case '2': listar(); break;    // a opcao escolhida pelo
-            case '3': consultar(); break; // usuario.
-            case '4': editar(); break;
-            case '5': excluir(); break;
+        gotoxy(18,13); op = getche();      // Le a opção do usuário.
+        switch(op) {                       // faz a chamada a uma
+            case '1': incluir(); 	break; // das funcoes, conforme
+            case '2': listar(); 	break; // a opcao escolhida pelo
+            case '3': consultar(); 	break; // usuario.
+            case '4': editar(); 	break;
+            case '5': excluir(); 	break;
             case '6': clrscr();
                 gotoxy(10,10); printf("O programa foi encerrado.");
                 gotoxy(10,12); printf("Tecle algo para sair...");
@@ -121,6 +121,34 @@ void listar() {
             // se ocorrer algum erro no processo, a funcao retorna nulo.
             
             teste = fread(&reg, sizeof(struct aluno), 1, arq);
+            
+            if(teste && strcmp(reg.nome, "")) { // Exibe os dados na tela.
+            	gotoxy(10,linha); printf("%04i",reg.cod);
+            	gotoxy(18,linha); puts(reg.nome);
+            	gotoxy(40,linha); printf("%.1f",reg.n1);
+            	gotoxy(45,linha); printf("%.1f",reg.n2);
+            	gotoxy(50,linha); printf("%.1f",reg.med);
+            	if(linha<17)
+            		linha++;
+            	else { // "Rola" os registros na tela.
+            		gotoxy(10,22);
+            		printf("Tecle ENTER p/ continuar exibindo os registros.");
+            		getch();
+            		gotoxy(10,9); delline(); // Excluir a primeira da lista.
+            		gotoxy(10,17); insline(); // Insere linha no final da lista.
+				}
+			}
         }
+        gotoxy(10,22); printf("Listagem concluida.");
+        gotoxy(10,23); printf("Tecle algo para voltar ao menu...");
+        getch();
+        fclose(arq); // Fecha o arquivo.
     }
+    else {
+    	gotoxy(10,8); printf("Arquivo vazio.");
+        gotoxy(10,10); printf("Tecle algo para voltar ao menu...");
+        getch();
+	}
 }
+
+// ^^^^ pg 185 ^^^^
