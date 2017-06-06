@@ -1,3 +1,5 @@
+// Ler um valor do tipo inteiro e verificar se ele e par ou impar.
+
 #include <stdio.h>
 #include <conio.c>
 
