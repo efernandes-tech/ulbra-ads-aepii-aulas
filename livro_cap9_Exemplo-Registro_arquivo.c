@@ -71,7 +71,7 @@ void incluir() {
 
     if(arq) { // Se o arquivo foi aberto corretamente,
               // le os dados, calcula a media e grava o resultado no arquivo.
-        while(resp == 's' || resp == "S") {
+        while(resp == 's' || resp == 'S') {
             clrscr();
             gotoxy(10,3); printf("Cadastro de aluno"); // coluna, linha
             gotoxy(10,5); printf("=====");
@@ -114,7 +114,7 @@ void listar() {
         gotoxy(10,5); printf("=====");
         gotoxy(10,7); printf("Codigo  Nome          N1  N2  Media");
         
-        while(!feop(arq)){ // Enquanto nao for o final do arquivo.
+        while(!feof(arq)){ // Enquanto nao for o final do arquivo.
 
             // O comando abaixo le os dados do registro, gravados no arquivo,
             // a variavel teste recebe o retorno da funcao fread,
@@ -151,4 +151,66 @@ void listar() {
 	}
 }
 
-// ^^^^ pg 185 ^^^^
+// ----- Função Consultar
+
+void consultar() {
+	char nomepesq[30];
+	int achei;
+	resp='s';
+	
+	arq=fopen("cad_aluno.txt","rb"); // Abre o arquivo para leitura.
+	
+	if(arq) {
+		while(resp='s' || resp='S') {
+			clrscr();
+			gotoxy(10,3); printf("Consulta registro de aluno");
+			gotoxy(10,5); printf("=====");
+			gotoxy(10,7);
+			printf("Nome a ser pesquisado: ");
+			fflush();
+			fgets(nomepesq,30,stdin);
+			
+			achei=0;
+			rewind(arq); // Posiciona o apontador de reg no inicio do arquivo.
+			while(!feof(arq) && achei==0) {
+				
+				// O comando abaixo le os dados do registro gravados no arquivo,
+				// a variavel teste recebe o retorno da função fread e
+				// se ocorrer algum erro no processo, a função retorno nulo.
+				
+				teste=fread(&reg,sizeof(struct aluno),1,arq);
+				
+				if (teste) {
+					// Compara o campo nome do registro o nome pesquisado.
+					if (strcmp(reg.nome,nomepesq)==0) {
+						// Se o nome pesquisado foi encontrado,
+						// exibe os outros campos do registro na tela.
+						gotoxy(10,10); printf("Pesquisa realizada com sucesso!");
+						gotoxy(10,13); printf("Codigo..: %i",reg.cod);
+						gotoxy(10,14); printf("Nome....: %s",reg.nome);
+						gotoxy(10,15); printf("Nota 1..: %.1f",reg.n1);
+						gotoxy(10,16); printf("Nota 2..: %.1f",reg.n2);
+						gotoxy(10,17); printf("Media...: %.1f",reg.med);
+						achei=1;
+					}
+				}
+			}
+			if (achei==0){
+				gotoxy(10,12);
+				printf("Registro nao encontrado.");
+			}
+			gotoxy(10,20);
+			printf("Deseja continuar? S/N");
+			resp=getche();
+		}
+		fclose(arq); // Fecha o arquivo.
+	}
+	else {
+		clrscr();
+		gotoxy(10,8); printf("Arquivo vazio.");
+		gotoxy(10,10); printf("Tecle algo para voltar ao menu...");
+		getch();
+	}
+}
+
+// pg 190
