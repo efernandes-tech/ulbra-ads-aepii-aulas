@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <conio.c>
-#include "biblioteca.h"
+#include "a18_biblioteca.h"
 
 main() {
 	int dia, mes, ano, retorno;
